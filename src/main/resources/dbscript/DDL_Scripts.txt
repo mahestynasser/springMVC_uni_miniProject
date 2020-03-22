@@ -1,0 +1,25 @@
+
+CREATE TABLE Teacher(
+   teacherId serial PRIMARY KEY,
+   name VARCHAR (50) NOT NULL,
+   email VARCHAR (50) UNIQUE NOT NULL
+);
+
+CREATE TABLE Student(
+	studentId serial PRIMARY KEY,
+	name VARCHAR (50) NOT NULL,
+	email VARCHAR (50) UNIQUE NOT NULL
+);
+
+CREATE TABLE Course(
+	courseId serial PRIMARY KEY,
+	name VARCHAR (50) UNIQUE NOT NULL,
+	description VARCHAR (200),
+	teacherId int UNIQUE NOT NULL REFERENCES Teacher(teacherId) ON DELETE CASCADE
+);
+
+CREATE TABLE Student_Course(
+	studentId int NOT NULL REFERENCES Student(studentId) ON DELETE CASCADE,
+	courseId int NOT NULL REFERENCES Course(courseId) ON DELETE CASCADE,
+	CONSTRAINT student_course_pkey PRIMARY KEY (studentId, courseId)
+);
